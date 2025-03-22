@@ -16,7 +16,7 @@ This repository contains diagrams and documentation for the **Rahati Platform** 
 
 ## System Context Diagram
 
-![System Context Diagram](DOCS/system_context.png)
+![System Context Diagram](DOCS/system_constext.png)
 
 The **System Context** diagram provides a high-level overview of the Rahati Platform, showing external systems (e.g., Payment Gateway, SMS Gateway) and the main actors (Patient, Provider, Administrator).
 
