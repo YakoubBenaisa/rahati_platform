@@ -70,10 +70,3 @@ The **Entity-Relationship Diagram (ERD)** (in the linked image) represents the l
 [Link to Know more..](https://dbdocs.io/yakoubbenaissa7/Rahati-Database-Schema)
 ---
 
-## Contributing
-
-1. **Fork** this repository.  
-2. Create a new **branch** for your feature or fix.  
-3. Commit your changes and **push** to your branch.  
-4. Open a **Pull Request** to merge your changes into the main branch.
-
