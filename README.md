@@ -67,7 +67,7 @@ The **Use Case** diagram provides a functional overview, depicting the various w
 [**View the Rahati Database Schema**](DOCS/Rahati-Database-Schema.png)
 
 The **Entity-Relationship Diagram (ERD)** (in the linked image) represents the logical structure of the Rahati Platform’s database. It shows how entities such as Users, Appointments, Payments, and others relate to each other, along with key fields and relationships.
-
+[Link to Know more..](https://dbdocs.io/yakoubbenaissa7/Rahati-Database-Schema)
 ---
 
 ## Contributing
