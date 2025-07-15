@@ -1,34 +1,11 @@
 services:
   - type: web
-    name: laravel-app
+    name: rahati-platform
     env: docker
     plan: free
-    autoDeploy: true
-    dockerfilePath: ./Dockerfile
     buildCommand: ""
-    startCommand: "apache2-foreground"
-    envVars:
-      - key: APP_ENV
-        value: production
-      - key: base64:+V6pDumUhxJ4n9bALiqeLatzxr3zz4/9z08XKYKSa6g=
-        sync: false
-      - key: DB_CONNECTION
-        value: mysql
-      - key: DB_HOST
-        fromService:
-          name: laravel-mysql
-          type: pserv
-      - key: DB_PORT
-        value: 3306
-      - key: DB_DATABASE
-        value: your_db_name
-      - key: DB_USERNAME
-        value: your_db_user
-      - key: DB_PASSWORD
-        sync: false
-
-databases:
-  - name: laravel-mysql
-    plan: free
-    databaseName: your_db_name
-    user: your_db_user
+    startCommand: >
+      php artisan config:cache &&
+      php artisan migrate --force &&
+      apache2-foreground
+    rootDir: rahati

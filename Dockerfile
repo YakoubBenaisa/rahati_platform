@@ -1,28 +1,25 @@
 FROM php:8.2-apache
 
-# Install dependencies
+WORKDIR /var/www/html
+
+# System dependencies
 RUN apt-get update && apt-get install -y \
-    git curl unzip zip libpng-dev libonig-dev libxml2-dev \
-    libzip-dev zip libjpeg-dev libfreetype6-dev libmcrypt-dev \
-    && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
+    zip unzip git curl libzip-dev libpng-dev libonig-dev libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Set working directory
-WORKDIR /var/www/html
+# Set Apache to serve /public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Copy project files
-COPY . .
+# Copy Laravel files (from current context)
+COPY . /var/www/html
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Install dependencies
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Fix permissions
+# Permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage
-
-EXPOSE 80
+    && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
