@@ -1,0 +1,1138 @@
+{
+  "info": {
+    "name": "Rahati Platform API",
+    "description": "API documentation for the Rahati healthcare platform, including user management, appointments, centers, and more.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "Endpoints for user authentication and registration",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Authenticate a user and receive an access token"
+          },
+          "response": [
+            {
+              "name": "Successful Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "login"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n  \"userId\": 123,\n  \"role\": \"Patient\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New User\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"Patient\",\n  \"phone\": \"555-1234\",\n  \"address\": \"123 Main St\",\n  \"caregiver_name\": \"Caregiver Name\",\n  \"caregiver_phone\": \"555-5678\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Register a new user account"
+          },
+          "response": [
+            {
+              "name": "Successful Registration",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New User\",\n  \"email\": \"newuser@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"Patient\",\n  \"phone\": \"555-1234\",\n  \"address\": \"123 Main St\",\n  \"caregiver_name\": \"Caregiver Name\",\n  \"caregiver_phone\": \"555-5678\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/register",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "register"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n  \"userId\": 456,\n  \"role\": \"Patient\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            },
+            "description": "Logout and invalidate the current token"
+          },
+          "response": [
+            {
+              "name": "Successful Logout",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/auth/logout",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "logout"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Successfully logged out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/user",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "user"]
+            },
+            "description": "Get the currently authenticated user's details"
+          },
+          "response": [
+            {
+              "name": "Current User",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/auth/user",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "user"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 123,\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"role\": \"Patient\",\n  \"phone\": \"555-1234\",\n  \"address\": \"123 Main St\",\n  \"caregiver_name\": null,\n  \"caregiver_phone\": null,\n  \"center_id\": null,\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "description": "Endpoints for user management",
+      "item": [
+        {
+          "name": "List All Users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "List all users (Admin/Superuser only). Regular admins can only see users from their assigned center."
+          },
+          "response": [
+            {
+              "name": "User List (Admin)",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Admin User\",\n    \"email\": \"admin@rahati.com\",\n    \"role\": \"Admin\",\n    \"center_id\": 1,\n    \"phone\": \"+1234567890\",\n    \"address\": \"123 Admin St\",\n    \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n    \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Provider User\",\n    \"email\": \"provider@rahati.com\",\n    \"role\": \"Provider\",\n    \"center_id\": null,\n    \"phone\": \"+1987654321\",\n    \"address\": \"456 Provider Ave\",\n    \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n    \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Patient User\",\n    \"email\": \"patient@rahati.com\",\n    \"role\": \"Patient\",\n    \"center_id\": null,\n    \"phone\": \"+1122334455\",\n    \"address\": \"789 Patient Blvd\",\n    \"caregiver_name\": \"Caregiver Name\",\n    \"caregiver_phone\": \"+1555666777\",\n    \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n    \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Get User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "User ID"
+                }
+              ]
+            },
+            "description": "Get a specific user by ID (Admin/Superuser or the user themselves)"
+          },
+          "response": [
+            {
+              "name": "User Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/users/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["users", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Admin User\",\n  \"email\": \"admin@rahati.com\",\n  \"role\": \"Admin\",\n  \"center_id\": 1,\n  \"phone\": \"+1234567890\",\n  \"address\": \"123 Admin St\",\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Admin\",\n  \"email\": \"newadmin@rahati.com\",\n  \"password\": \"password123\",\n  \"role\": \"Admin\",\n  \"center_id\": 1,\n  \"phone\": \"555-1234\",\n  \"address\": \"123 Admin St\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Create a new user (Admin/Superuser only). Regular admins can only create users for their assigned center."
+          },
+          "response": [
+            {
+              "name": "User Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Admin\",\n  \"email\": \"newadmin@rahati.com\",\n  \"password\": \"password123\",\n  \"role\": \"Admin\",\n  \"center_id\": 1,\n  \"phone\": \"555-1234\",\n  \"address\": \"123 Admin St\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4,\n  \"name\": \"New Admin\",\n  \"email\": \"newadmin@rahati.com\",\n  \"role\": \"Admin\",\n  \"center_id\": 1,\n  \"phone\": \"555-1234\",\n  \"address\": \"123 Admin St\",\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Create Superuser",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Superuser\",\n  \"email\": \"superuser@rahati.com\",\n  \"password\": \"password123\",\n  \"role\": \"Superuser\",\n  \"phone\": \"555-9876\",\n  \"address\": \"456 Super St\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Create a new superuser (Superuser only)"
+          },
+          "response": [
+            {
+              "name": "Superuser Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Superuser\",\n  \"email\": \"superuser@rahati.com\",\n  \"password\": \"password123\",\n  \"role\": \"Superuser\",\n  \"phone\": \"555-9876\",\n  \"address\": \"456 Super St\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["users"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5,\n  \"name\": \"New Superuser\",\n  \"email\": \"superuser@rahati.com\",\n  \"role\": \"Superuser\",\n  \"center_id\": null,\n  \"phone\": \"555-9876\",\n  \"address\": \"456 Super St\",\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": \"555-5555\",\n  \"address\": \"Updated Address\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "User ID"
+                }
+              ]
+            },
+            "description": "Update a user (Admin/Superuser or the user themselves)"
+          },
+          "response": [
+            {
+              "name": "User Updated",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": \"555-5555\",\n  \"address\": \"Updated Address\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/users/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["users", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Updated Name\",\n  \"email\": \"admin@rahati.com\",\n  \"role\": \"Admin\",\n  \"center_id\": 1,\n  \"phone\": \"555-5555\",\n  \"address\": \"Updated Address\",\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:30:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": ["{{base_url}}"],
+              "path": ["users", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "User ID"
+                }
+              ]
+            },
+            "description": "Delete a user (Admin/Superuser only). Regular admins can only delete users from their assigned center."
+          },
+          "response": [
+            {
+              "name": "User Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/users/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["users", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"User deleted successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Centers",
+      "description": "Endpoints for healthcare center management",
+      "item": [
+        {
+          "name": "List All Centers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/centers",
+              "host": ["{{base_url}}"],
+              "path": ["centers"]
+            },
+            "description": "List all healthcare centers. Regular admins can only see their assigned center."
+          },
+          "response": [
+            {
+              "name": "Centers List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/centers",
+                  "host": ["{{base_url}}"],
+                  "path": ["centers"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Rahati Wellness Center\",\n    \"description\": \"A premier wellness center offering comprehensive health services.\",\n    \"address\": \"100 Wellness Way, Health City, HC 12345\",\n    \"phone\": \"+1999888777\",\n    \"email\": \"info@rahatiwellness.com\",\n    \"website\": \"https://rahatiwellness.com\",\n    \"latitude\": 37.7749,\n    \"longitude\": -122.4194,\n    \"is_active\": true,\n    \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n    \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Rahati Rehabilitation Center\",\n    \"description\": \"Specialized rehabilitation services for all ages.\",\n    \"address\": \"200 Rehab Road, Recovery Town, RT 67890\",\n    \"phone\": \"+1888777666\",\n    \"email\": \"info@rahatirehab.com\",\n    \"website\": \"https://rahatirehab.com\",\n    \"latitude\": 34.0522,\n    \"longitude\": -118.2437,\n    \"is_active\": true,\n    \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n    \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Get Center",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/centers/:id",
+              "host": ["{{base_url}}"],
+              "path": ["centers", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "Center ID"
+                }
+              ]
+            },
+            "description": "Get a specific center by ID. Regular admins can only view their assigned center."
+          },
+          "response": [
+            {
+              "name": "Center Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/centers/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["centers", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Rahati Wellness Center\",\n  \"description\": \"A premier wellness center offering comprehensive health services.\",\n  \"address\": \"100 Wellness Way, Health City, HC 12345\",\n  \"phone\": \"+1999888777\",\n  \"email\": \"info@rahatiwellness.com\",\n  \"website\": \"https://rahatiwellness.com\",\n  \"latitude\": 37.7749,\n  \"longitude\": -122.4194,\n  \"is_active\": true,\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"rooms\": [\n    {\n      \"id\": 1,\n      \"center_id\": 1,\n      \"room_number\": \"101\",\n      \"type\": \"single\",\n      \"description\": \"Comfortable single room with private bathroom\",\n      \"price_per_night\": 100.00,\n      \"capacity\": 1,\n      \"is_accessible\": true,\n      \"is_available\": true,\n      \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n      \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Create Center",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Rahati Center\",\n  \"description\": \"A new healthcare center\",\n  \"address\": \"300 New Center Ave, New City, NC 54321\",\n  \"phone\": \"+1777666555\",\n  \"email\": \"info@newcenter.com\",\n  \"website\": \"https://newcenter.com\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/centers",
+              "host": ["{{base_url}}"],
+              "path": ["centers"]
+            },
+            "description": "Create a new healthcare center (Admin/Superuser only)"
+          },
+          "response": [
+            {
+              "name": "Center Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New Rahati Center\",\n  \"description\": \"A new healthcare center\",\n  \"address\": \"300 New Center Ave, New City, NC 54321\",\n  \"phone\": \"+1777666555\",\n  \"email\": \"info@newcenter.com\",\n  \"website\": \"https://newcenter.com\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060,\n  \"is_active\": true\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/centers",
+                  "host": ["{{base_url}}"],
+                  "path": ["centers"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3,\n  \"name\": \"New Rahati Center\",\n  \"description\": \"A new healthcare center\",\n  \"address\": \"300 New Center Ave, New City, NC 54321\",\n  \"phone\": \"+1777666555\",\n  \"email\": \"info@newcenter.com\",\n  \"website\": \"https://newcenter.com\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060,\n  \"is_active\": true,\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:00:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Update Center",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Center Name\",\n  \"phone\": \"+1777888999\",\n  \"email\": \"updated@center.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/centers/:id",
+              "host": ["{{base_url}}"],
+              "path": ["centers", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "Center ID"
+                }
+              ]
+            },
+            "description": "Update a center (Admin/Superuser only). Regular admins can only update their assigned center."
+          },
+          "response": [
+            {
+              "name": "Center Updated",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated Center Name\",\n  \"phone\": \"+1777888999\",\n  \"email\": \"updated@center.com\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/centers/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["centers", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"name\": \"Updated Center Name\",\n  \"description\": \"A premier wellness center offering comprehensive health services.\",\n  \"address\": \"100 Wellness Way, Health City, HC 12345\",\n  \"phone\": \"+1777888999\",\n  \"email\": \"updated@center.com\",\n  \"website\": \"https://rahatiwellness.com\",\n  \"latitude\": 37.7749,\n  \"longitude\": -122.4194,\n  \"is_active\": true,\n  \"created_at\": \"2025-04-01T12:00:00.000000Z\",\n  \"updated_at\": \"2025-04-01T12:30:00.000000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Delete Center",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/centers/:id",
+              "host": ["{{base_url}}"],
+              "path": ["centers", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1",
+                  "description": "Center ID"
+                }
+              ]
+            },
+            "description": "Delete a center (Admin/Superuser only). Regular admins can only delete their assigned center."
+          },
+          "response": [
+            {
+              "name": "Center Deleted",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/centers/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["centers", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Center deleted successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "Center Deactivated",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{auth_token}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/centers/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["centers", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Center deactivated successfully\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http:localhost:8000/v1",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
